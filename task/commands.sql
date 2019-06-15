@@ -1,8 +1,9 @@
 CREATE USER user IDENTIFIED BY 'pass';
+CREATE USER myuser IDENTIFIED BY 'myuser';
 GRANT ALL ON *.* TO myuser@'%' IDENTIFIED BY 'myuser' WITH GRANT OPTION;
 GRANT ALL ON *.* TO user@'%' IDENTIFIED BY 'pass';
 
-create database bookdb default charset utf8;
+create database booklist default charset utf8;
 use bookdb;
 
 create table tag(

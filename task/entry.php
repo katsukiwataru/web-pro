@@ -1,3 +1,10 @@
+<?php
+header('Content-Type: text/html; charset=UTF-8');
+try {
+  $dbh = new PDO('mysql:host=db;dbname=booklist;charset=utf8;', 'myuser', 'myuser');
+  $dbh->query("set names utf8");
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -14,35 +21,52 @@
         enctype="multipart/form-data">
     <div>
       <label>商品名</label>
-      <input type="text" name="product_name">
+      <input type="text" name="name">
     </div>
     <div>
     <div>
       <label>価格</label>
       <input type="text" name="price">
     </div>
+    <div>
+      <label>ISBN</label>
+      <input type="text" name="isbn">
+    </div>
     <label>著者</label>
     <select name="author">
-      <option value="">選択してください</option>
-      <option value="Cory">コーリー・アルソフ</option>
-      <option value="Mana">Mana</option>
+      <?php
+      $stmt = $dbh->query('SELECT * FROM author');
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      ?>
+      <option value="<?=$row['name']?>"><?=$row['name']?></option>
+      <?php
+      }
+      ?>
     </select>
     </div>
     <div>
       <label>カテゴリー</label>
       <select name="category">
-        <option value="">選択してください</option>
-        <option value="desgin">デザイン</option>
-        <option value="programming">プログラミング</option>
+        <?php
+        $stmt = $dbh->query('SELECT * FROM category');
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        ?>
+        <option value="<?=$row['name']?>"><?=$row['name']?></option>
+        <?php
+        }
+        ?>
       </select>
     </div>
     <div>
       <label>タグ</label>
-        <input type="checkbox" name="tag" value="easy">わかりやすい
-        <input type="checkbox" name="tag" value="interesting">面白い
-        <input type="checkbox" name="tag" value="required">必須
-        <input type="checkbox" name="tag" value="python">python
-        <input type="checkbox" name="tag" value="self-study">独学シリーズ
+      <?php
+      $stmt = $dbh->query('SELECT * FROM tag');
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      ?>
+      <input type="checkbox" name="tag[]" value="<?=$row['name']?>"><?=$row['name']?>
+      <?php
+      }
+      ?>
     </div>
     <div>
       <button>登録</button>
@@ -51,3 +75,8 @@
 </div>
 </body>
 </html>
+<?php
+} catch (PDOException $e) {
+  var_dump($e);
+  exit;
+}
