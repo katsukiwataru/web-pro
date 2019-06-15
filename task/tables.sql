@@ -1,3 +1,9 @@
+CREATE USER user IDENTIFIED BY 'pass';
+GRANT ALL ON *.* TO user@'%' IDENTIFIED BY 'pass';
+
+create database bookdb default charset utf8;
+use bookdb;
+
 create table tag(
     id int auto_increment primary key,
     name varchar(255) not null
@@ -31,3 +37,7 @@ create table book(
     foreign key (author_id)
         references author(id)
 );
+
+insert into category (name) values ("プログラミング"), ("デザイン");
+insert into author (name) values ("コーリー・アルソフ"), ("Mana");
+insert into tag (name) values ("面白い"), ("python"), ("独学シリーズ"), ("わかりやすい"), ("必須");
