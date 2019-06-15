@@ -20,6 +20,7 @@ docker ps
 docker exec -it <<web サーバのコンテナID>> bash
 mysql -u myuser -p -h db
 <<password と入力>>
+test
 
 # PHP からつなげるか試してみる
 <?php
@@ -47,4 +48,3 @@ mysql -u myuser -p -h db
         var_dump($e);
         exit;
     }
-
