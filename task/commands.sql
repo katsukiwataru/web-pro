@@ -1,4 +1,5 @@
 CREATE USER user IDENTIFIED BY 'pass';
+GRANT ALL ON *.* TO myuser@'%' IDENTIFIED BY 'myuser' WITH GRANT OPTION;
 GRANT ALL ON *.* TO user@'%' IDENTIFIED BY 'pass';
 
 create database bookdb default charset utf8;
