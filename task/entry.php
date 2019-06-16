@@ -3,78 +3,74 @@ header('Content-Type: text/html; charset=UTF-8');
 try {
   $dbh = new PDO('mysql:host=db;dbname=booklist;charset=utf8;', 'myuser', 'myuser');
   $dbh->query("set names utf8");
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <title>登録画面</title>
+  </head>
 <body>
-  <h1>商品登録画面</h1>
-<div>
-  <form action="action.php"
-        method="POST"
-        enctype="multipart/form-data">
-    <div>
-      <label>商品名</label>
-      <input type="text" name="name">
-    </div>
-    <div>
-    <div>
-      <label>価格</label>
-      <input type="text" name="price">
-    </div>
-    <div>
-      <label>ISBN</label>
-      <input type="text" name="isbn">
-    </div>
-    <label>著者</label>
-    <select name="author">
+  <h1>登録</h1>
+  <form action="action.php" method="POST">
+    <p>
+      <label for="isbn">ISBN:</label>
+      <input type="number" id="isbn" name="isbn">
+    </p>
+    <p>
+      <label for="name">名前:</label>
+      <input type="text" id="name" name="name">
+    </p>
+    <p>
+      <label for="price">価格:</label>
+      <input type="number" id="price" name="price">
+    </p>
+    <p>
+      <label for="category">カテゴリ:</label>
+      <select id="category" name="category">
+      <?php
+      $stmt = $dbh->query('SELECT * FROM category');
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      ?>
+      <option value="<?=$row['id']?>"><?=$row['name']?></option>
+      <?php
+      }
+      ?>
+      </select>
+    </p>
+    <p>
+      <label for="author">作者:</label>
+      <select name="author" id="author">
       <?php
       $stmt = $dbh->query('SELECT * FROM author');
       while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       ?>
-      <option value="<?=$row['name']?>"><?=$row['name']?></option>
+      <option value="<?=$row['id']?>"><?=$row['name']?></option>
       <?php
       }
       ?>
-    </select>
-    </div>
-    <div>
-      <label>カテゴリー</label>
-      <select name="category">
-        <?php
-        $stmt = $dbh->query('SELECT * FROM category');
-        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-        ?>
-        <option value="<?=$row['name']?>"><?=$row['name']?></option>
-        <?php
-        }
-        ?>
       </select>
-    </div>
-    <div>
-      <label>タグ</label>
+    </p>
+    <p>
+      <label>タグ:</label>
       <?php
       $stmt = $dbh->query('SELECT * FROM tag');
       while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       ?>
-      <input type="checkbox" name="tag[]" value="<?=$row['name']?>"><?=$row['name']?>
+      <input type="checkbox" name="tag[]" value="<?=$row['id']?>"><?=$row['name']?>
       <?php
       }
       ?>
-    </div>
-    <div>
-      <button>登録</button>
-    </div>
+    </p>
+    <button type="submit">登録</button>
   </form>
-</div>
 </body>
 </html>
+
 <?php
 } catch (PDOException $e) {
   var_dump($e);
