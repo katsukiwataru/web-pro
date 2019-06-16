@@ -11,11 +11,11 @@
         <input type="text" name="code">
       </div>
       <div>
-         <label>氏名</label>
-         <input type="text" name="name">
-       </div>
+        <label>氏名</label>
+        <input type="text" name="name">
+        </div>
       <div>
-         <label>学年</label>
+        <label>学年</label>
         <select name="grade">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -56,8 +56,7 @@
   }
 
   try {
-    $dbh = new PDO('mysql:host=db;dbname=webprodb',
-                   'myuser', 'password');
+    $dbh = new PDO('mysql:host=db;dbname=webprodb','myuser', 'password');
 
     $sql = 'SELECT * FROM students';
     if (isset($_GET['code'])) {
