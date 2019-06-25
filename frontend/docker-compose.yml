@@ -7,5 +7,5 @@ services:
       - ./node/app:/app
     ports:
       - "8080:3000"
-    command: "npx nodemon server.js"
-    # command: "npx webpack-dev-server --hot"
+    # command: "npx nodemon server.js"
+    command: "npx webpack-dev-server --hot"
